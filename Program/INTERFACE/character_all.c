@@ -171,6 +171,7 @@ void ProcessCommandExecute()
 
 void SetVariable()
 {
+	if (xi_refCharacter.id == "Beatrice" && xi_refCharacter.FaceId == "478") xi_refCharacter.FaceId = "488"
 	FillSkillTables();
 	SetNewPicture("CHARACTER_BIG_PICTURE", "interfaces\portraits\256\face_" + xi_refCharacter.FaceId + ".tga");
 	SetFormatedText("HERO_NAME", GetFullName(xi_refCharacter));
