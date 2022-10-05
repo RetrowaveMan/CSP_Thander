@@ -121,7 +121,7 @@ void SetCheckButtonsStates()
 		CheckButton_SetState("CHECK_RESTRICTSELL", 1, false);
 	}
 
-	if(CheckAttribute(Characters[iCurFighter], "TransferItems.SellRestriction"))
+	if(CheckAttribute(Characters[iCurFighter], "TransferItemsOptions.SellRestriction"))
 	{
 		CheckButton_SetState("CHECK_RESTRICTSELL_I", 1, true);
 	}
@@ -130,7 +130,7 @@ void SetCheckButtonsStates()
 		CheckButton_SetState("CHECK_RESTRICTSELL_I", 1, false);
 	}
 
-	if(CheckAttribute(Characters[iCurFighter], "TransferItems.SellGarbageRestriction"))
+	if(CheckAttribute(Characters[iCurFighter], "TransferItemsOptions.SellGarbageRestriction"))
 	{
 		CheckButton_SetState("CHECK_RESTRICTSELL_G", 1, true);
 	}
@@ -148,7 +148,7 @@ void SetCheckButtonsStates()
 		CheckButton_SetState("CHECK_SELL_LOGS", 1, false);
 	}
 
-	if(CheckAttribute(Characters[iCurFighter], "TransferItems.AutoBuyAmmo"))
+	if(CheckAttribute(Characters[iCurFighter], "TransferItemsOptions.AutoBuyAmmo"))
 	{
 		CheckButton_SetState("CHECK_BUYAMMO", 1, true);
 		SetNodeUsing("SETBUYAMMO", true);
@@ -406,15 +406,15 @@ void ProcessCheckBox()
 //========================================//
 	if (sControl == "CHECK_RESTRICTSELL_I")
 	{
-	if (iNewState) Characters[iCurFighter].TransferItems.SellRestriction = true;
-		else DeleteAttribute(&Characters[iCurFighter], "TransferItems.SellRestriction");
+	if (iNewState) Characters[iCurFighter].TransferItemsOptions.SellRestriction = true;
+		else DeleteAttribute(&Characters[iCurFighter], "TransferItemsOptions.SellRestriction");
 	return;
 	}
 //========================================//
 	if (sControl == "CHECK_RESTRICTSELL_G")
 	{
-	if (iNewState) Characters[iCurFighter].TransferItems.SellGarbageRestriction = true;
-		else DeleteAttribute(&Characters[iCurFighter], "TransferItems.SellGarbageRestriction");
+	if (iNewState) Characters[iCurFighter].TransferItemsOptions.SellGarbageRestriction = true;
+		else DeleteAttribute(&Characters[iCurFighter], "TransferItemsOptions.SellGarbageRestriction");
 	return;
 	}
 //========================================//
@@ -427,8 +427,8 @@ void ProcessCheckBox()
 //========================================//
 	if (sControl == "CHECK_BUYAMMO")
 	{
-	if (iNewState) Characters[iCurFighter].TransferItems.AutoBuyAmmo = true;
-		else DeleteAttribute(&Characters[iCurFighter], "TransferItems.AutoBuyAmmo");
+	if (iNewState) Characters[iCurFighter].TransferItemsOptions.AutoBuyAmmo = true;
+		else DeleteAttribute(&Characters[iCurFighter], "TransferItemsOptions.AutoBuyAmmo");
 	SetNodeUsing("SETBUYAMMO", iNewState);
 	FillItemsTable();//TODO - проверить, что два раза таблица не заполняется при смене персонажа, если командой сменяется отметка чекбокса
 	return;
@@ -745,9 +745,12 @@ void SaveItemsSet()
 
 	aref arToChar;
 	aref arFromChar;
+	aref arOptionsFromChar;
 	makearef(arToChar, pchar.(sSET) );
 	makearef(arFromChar, Characters[iCurFighter].TransferItems);
+	makearef(arOptionsFromChar, Characters[iCurFighter].TransferItemsOptions);
     CopyAttributes(arToChar,arFromChar);
+    CopyAttributes(arToChar,arOptionsFromChar);
 
 	//ShowEditBoxI();//переименование шаблона пока не работает
 }
@@ -755,10 +758,13 @@ void LoadItemsSet()
 {
 	string sSET = "ItemsSet" + iITEMS_SET;//ItemsSet1
 	aref arToChar;
+	aref arOptionsToChar;
 	aref arFromChar;
 	makearef(arToChar, Characters[iCurFighter].TransferItems);
+	makearef(arOptionsToChar, Characters[iCurFighter].TransferItemsOptions);
 	makearef(arFromChar, pchar.(sSET) );
     CopyAttributes(arToChar,arFromChar);
+    CopyAttributes(arOptionsToChar,arFromChar);
 
 	FillItemsTable();
 	SetCheckButtonsStates();

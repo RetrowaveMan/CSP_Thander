@@ -2671,13 +2671,27 @@ void CalculateInfoDataF55()
 	Statistic_AddValue(PChar, "Cheats.F55", 1);
 }
 
-string descF56 = "Нет назначений";
+string descF56 = "Получить все предметы в игре (кроме карт и квестовых) и бесконечный инвентарь";
 void CalculateInfoDataF56()
 {
 	totalInfo = descF56;
 
+	ref mc = GetMainCharacter();
+	mc.UnlimitedWeight = true;
+	for (int i = 0; i < ITEMS_QUANTITY; i++) 
+	{
+		ref itm = &Items[i];
+
+		if (!CheckAttribute(itm, "id")) continue;
+		if (!CheckAttribute(itm, "Weight")) continue;
+		if (CheckAttribute(itm, "ItemType")) {
+			if (itm.ItemType == "MAP" || itm.ItemType == "QUESTITEMS") continue;
+		}
+
+		AddItems(mc, itm.id, 1);
+	}
+
 	totalInfo = totalInfo + NewStr() + NewStr() + "Команда отработала успешно!";
-	pchar.LilarcorKills = 1799;
 
 	SetFormatedText("INFO_TEXT", totalInfo);
 

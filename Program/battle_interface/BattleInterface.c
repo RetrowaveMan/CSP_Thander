@@ -240,11 +240,13 @@ void BI_Frame()
 	{
 		Log_SetActiveAction("Board");
 		// boal -->
+		trace("before koshki")
 		if (boal_soundOn)
 		{
 		    boal_soundOn = false;
             PlayVoice("interface\_GTBoard"+rand(1)+".wav");
 		}
+		trace("after koshki")
 		// boal <--
 		return;
 	}

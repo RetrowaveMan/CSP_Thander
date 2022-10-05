@@ -1723,6 +1723,11 @@ bool CheckForExchangeAllowed(ref _chref)
 
 int GetMaxItemsWeight(ref _chref)
 {
+	if (CheckAttribute(_chref, "UnlimitedWeight"))
+	{
+		log_info("THERE")
+		return 9999999;
+	}
 	if (CheckAttribute(_chref, "Skill.Fencing"))
     {
         int iBonus = 0;
@@ -2443,6 +2448,12 @@ void ChangeAttributesFromCharacter(ref CopyChref, ref PastChref, bool _dialogCop
 	{
 		makearef(arToChar, CopyChref.TransferItems);
 		makearef(arFromChar, PastChref.TransferItems);
+		CopyAttributes(arToChar, arFromChar);
+	}
+	if (CheckAttribute(PastChref,"TransferItemsOptions"))
+	{
+		makearef(arToChar, CopyChref.TransferItemsOptions);
+		makearef(arFromChar, PastChref.TransferItemsOptions);
 		CopyAttributes(arToChar, arFromChar);
 	}
 	if (CheckAttribute(PastChref,"selectedSet"))

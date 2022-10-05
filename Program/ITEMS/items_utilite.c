@@ -558,6 +558,8 @@ int CalculateBladePrice(string fencingType, float dmg_min, float dmg_max, float 
 		break;
 	}
 
+	if (weight <= 0.0) return 0; // вещи с нулевым весом - нахуй
+
 	return sti(priceMod * dmg_min * dmg_max / weight);
 }
 

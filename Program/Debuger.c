@@ -107,17 +107,18 @@ void ActiveF5Control()
 {
 	int characterIndex = LAi_FindNearestVisCharacter(PChar, 15);
 	ref characterRef;
+    DumpAttributes(Items[Items_FindItemIdx("sculMa1")])
 
-    if(characterIndex != -1)
-    {
-        characterRef = GetCharacter(characterIndex);
+    // if(characterIndex != -1)
+    // {
+    //     characterRef = GetCharacter(characterIndex);
 
-		trace("==================== " + characterRef.ID + " ====================");
-		DumpAttributes(characterRef);
-		trace("========================================");
-	}
+	// 	trace("==================== " + characterRef.ID + " ====================");
+	// 	DumpAttributes(characterRef);
+	// 	trace("========================================");
+	// }
 
-	Log_Info("Дамп аттрибутов ближайшего персонажа");
+	// Log_Info("Дамп аттрибутов ближайшего персонажа");
 }
 
 void ActiveF7Control()

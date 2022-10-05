@@ -1652,18 +1652,27 @@ void Sea_Load()
 		trace("i = " + i + " ShipModelrList[i] = " + ShipModelrList[i] + " Ships[i] = " + Ships[i] + " ship.name = " + sTemp);
 	}
 
+	trace("next 1")
+
 	SendMessage(&Telescope, "leee", MSG_TELESCOPE_INIT_ARRAYS, &Nations, &RealShips, &Goods);
+
+	trace("next 2")
 
 	PostEvent(SHIP_CHECK_RELOAD_ENABLE, 1);
 	SetSchemeForSea();
 	PostEvent("Sea_FirstInit", 1);
 
+	trace("next 3")
+
 	DeleteAttribute(&oSeaSave, "");
 	bSeaLoad = false;
+
+	trace("next 4")
 
 	InitBattleInterface();
 	StartBattleInterface();
 	RefreshBattleInterface();
+	trace("next 5")
 }
 
 ref SeaLoad_GetPointer()

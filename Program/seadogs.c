@@ -843,20 +843,27 @@ void OnLoad()
 		}
 	}
 
+	trace("EngineLayersOffOn")
+
 	//ReloadEndFade();
 	EngineLayersOffOn(true);
 	//NewGame();
 	DialogRun = false;
 	InterfaceStates.Launched = false;
 
+	trace("ReloadProgressUpdate")
 	ReloadProgressUpdate();
 
+	trace("PerkLoad")
 	PerkLoad();
 
+	trace("ReloadProgressUpdate")
 	ReloadProgressUpdate();
 
+	trace("LoadGameOptions")
 	LoadGameOptions();
 
+	trace("ReloadProgressEnd")
 	ReloadProgressEnd();
     //#20200519-02
     BattleInterface.ShifInfoVisible = InterfaceStates.enabledshipmarks;
@@ -869,11 +876,13 @@ void OnLoad()
 
 	actLoadFlag = 0;
 	////
+	trace("ProcessVersionCheck")
 	ProcessVersionCheck();
 	//#20181015-02
 	if(bSeaActive && !bMapEnter)
         Sound_OnSeaAlarm555(seaAlarmed, true);
 
+	trace("iCalculateSaveLoadCount")
 	iCalculateSaveLoadCount("Load");
 }
 
