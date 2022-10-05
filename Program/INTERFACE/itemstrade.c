@@ -1701,7 +1701,6 @@ void BuyConsume(ref chr)
 		iMoneyQty -= iCost*qty;
 		TakeNItems(chr, sItem, qty);
 		TakeNItems(refStoreChar, sItem, -qty);
-		if (qty > 0 && GetFullName(chr) == GetFullName(PChar)) Log_Info(GetFullName(chr) + " куплено: " + "'" + LanguageConvertString(idLngFile, rItem.name) + "' " + qty + " шт. " + iCost*qty + " зол.");
 		//WaitDate("", 0, 0, 0, 0, 1);// Крутим время за каждый товар - многовато для закупок по списку
 		freeWeight -= fItemWeight*qty;
 		bAdded = true;//что-то успешно докупили
@@ -1717,14 +1716,6 @@ void BuyConsume(ref chr)
 
 	LanguageCloseFile(idLngFile);
 
-	if (CheckAttribute(&InterfaceStates, "AutoSellLogs"))
-	{
-		if (bAdded) 			{Log_Info(GetFullName(chr)+" пополнил" + sTemp + " комплект расходников.");	return;}
-		if (bNotOverWeight)		{Log_Info(GetFullName(chr)+" не получил" + sTemp + " новых расходников. Кончились деньги."); return;}
-		if (bNotEnough) 		{Log_Info(GetFullName(chr)+" не получил" + sTemp + " новых расходников из-за перегруза."); return;}
-		if (bNotEnoughTrader) 	{Log_Info(GetFullName(chr)+" не получил" + sTemp + " новых расходников. Не было в наличии у торговца."); return;}
-							 	 Log_Info(GetFullName(chr)+" уже имел" + sTemp + " полный комплект расходников.");
-	}
 	//TO DO - сделать подробный и красивый вывод результата
 	//TO DO - содержимое таблицы товаров не обновляется после отъёма товаров у торговца - исправить, Да и остаток золота в кармане тоже обновлять надо
 }
@@ -1779,95 +1770,15 @@ void SellExcessConsume(ref chr)
 		AddCharacterExpToSkill(rTreasurer, "Commerce", MakeInt(abs(iMoneyQty) / 800) + rand(1) + 2) //отчитываться о том, что опыт за торговлю получил казначей, а не игрок?
 		//TO DO - это начисление опыта за торговлю товарами, перепроверить, что за предметы столько же идёт
 		//TO DO - рандомные пары единичек опыта за каждую операцию в сумме дали бы больше опыта - надо ли это менять? выдавать опыт за каждый предмет или в суммарной функции увеличить бонус за число сделок?
-		Log_Info(GetFullName(chr)+" продал" + sTemp + " излишки расходников.");
 	}
 }
 
-void FastSaleCharacter(ref rChar, ref rSaleProps)
+void FastSaleCharacter(ref rChar, ref asMoney)
 {
 	aref arInventory, arItem;
 	string sItem;
-	ref rItem;
 	int sellQty, sellcost, i;
 
-	makearef(arInventory, rChar.Items);
-	for (i = 0; i < GetAttributesNum(arInventory); i++)
-	{
-		arItem = GetAttributeN(arInventory, i);
-		sItem = GetAttributeName(arItem);
-		rItem = ItemsFromID(sItem);
-
-		sellQty = GetCharacterFreeItem(rChar, sItem);
-		if (sellQty == 0) continue;
-
-		if ((sItem == "slave_01") || (sItem == "pistol3")) continue;
-
-		if (CheckAttribute(rItem, "quality"))
-		{
-			if ((rItem.quality == "poor") || (rItem.quality == "ordinary"))
-			{
-				if (CheckAttribute(rItem, "groupID") && (rItem.groupID == GUN_ITEM_TYPE))
-					rSaleProps.GunCount = sti(rSaleProps.GunCount) + sellQty;
-				else
-					rSaleProps.BladeCount = sti(rSaleProps.BladeCount) + sellQty;
-			}
-			else continue;
-		}
-		else
-		{
-			bool isRubbish =
-				(sItem == "mineral2") ||	// Лютня
-				(sItem == "mineral3") ||    // Свечи
-				(sItem == "mineral4") ||    // Баклан
-				(sItem == "mineral5") ||    // Старое ведро
-				(sItem == "mineral6") ||    // Коралл
-				(sItem == "mineral7") ||    // Трубка
-				(sItem == "mineral8") ||    // Башмак
-				(sItem == "mineral9") ||    // Кружка
-				(sItem == "mineral10") ||   // Мешочек соли
-				(sItem == "spyglass1") ||   // Дешевая подзорная труба
-				(sItem == "spyglass2") ||   // Обычная подзорная труба
-				(sItem == "jewelry6") ||    // Серебряное кольцо с сапфиром
-				(sItem == "jewelry7") ||    // Золотое кольцо с изумрудом
-				(sItem == "jewelry10") ||   // Золотое кольцо с сапфиром
-				(sItem == "jewelry11") ||   // Большая жемчужина
-				(sItem == "jewelry12") ||   // Маленькая жемчужина
-				(sItem == "jewelry13") ||   // Камея
-				(sItem == "jewelry16") ||   // Ожерелье
-				(sItem == "jewelry18") ||   // Золотое кольцо с рубином
-				(sItem == "indian2") ||     // Пугающая фигурка
-				(sItem == "indian8") ||     // Серебряный кубок
-				(sItem == "indian9") ||     // Алебастровый сосуд
-				(sItem == "indian13") ||    // Древняя курительница
-				(sItem == "indian16");      // Раскрашенный сосуд
-			bool isTalisman =               
-				(sItem == "indian17") ||	// Тельная ладанка
-				(sItem == "indian3") ||     // Нефритовая маска
-				(sItem == "indian5") ||     // Двойная маска
-				(sItem == "indian7") ||     // Идол Великой Матери
-				(sItem == "indian14") ||    // Чаша Ололиуки
-				(sItem == "indian12") ||    // Кубок-тотем Тепейоллотля
-				(sItem == "indian10") ||    // Оберег Эхекатля
-				(sItem == "indian1");       // Оберег Тлальчитонатиу
-			if (isRubbish)
-			{
-				rSaleProps.RubbishCount = sti(rSaleProps.RubbishCount) + sellQty;
-			}
-			else
-			{
-				if (isTalisman)
-				{
-					sellQty -= 1;
-					rSaleProps.TalismanCount = sti(rSaleProps.TalismanCount) + sellQty;
-				}
-				else continue;
-			}
-		}
-
-		rSaleProps.Items.(sItem) = sellQty;
-	}
-
-	makearef(arInventory, rSaleProps.Items);
 	for (i = 0; i < GetAttributesNum(arInventory); i++)
 	{
 		arItem = GetAttributeN(arInventory, i);
@@ -1877,7 +1788,7 @@ void FastSaleCharacter(ref rChar, ref rSaleProps)
 		sellcost = GetTradeItemPrice(sItem, PRICE_TYPE_SELL) * sellQty;
 		TakeNItems(rChar, sItem, -sellQty);
 		TakeNItems(refStoreChar, sItem, sellQty);
-		rSaleProps.money = sti(rSaleProps.money) + sellcost;
+		rSaleProps.money = sti(asMoney) + sellcost;
 	}
 
 	DeleteAttribute(rSaleProps, "Items");
@@ -1886,66 +1797,41 @@ void FastSaleCharacter(ref rChar, ref rSaleProps)
 void Fastsale_trash()
 {
 	int iOfficer = -1;
-
-	object sellProps;
-	ref rSaleProps;
-	makeref(rSaleProps, sellProps);
-
-	rSaleProps.money = 0;
-	rSaleProps.BladeCount = 0;
-	rSaleProps.GunCount = 0;
-	rSaleProps.RubbishCount = 0;
-	rSaleProps.TalismanCount = 0;
+	ref asMoney
 
 	for (int z = 0; z < 6 + MAX_NUM_FIGHTERS; z++)
 	{
+		bool isMainCharacter = z == 0
 		if (z == 0) iOfficer = GetMainCharacterIndex();
 		else iOfficer = GetOfficersIndex(pchar, z);
-		if (iOfficer != -1 && CheckAttribute(&characters[iOfficer],"TransferItems.SellGarbageRestriction"))
-		{
-			if (CheckAttribute(&characters[iOfficer],"fighter") || z == 0)
-			{
-				FastSaleCharacter(&characters[iOfficer], rSaleProps);
-			}
-		}
+
+		if (iOfficer == -1 ||
+			!CheckAttribute(&characters[iOfficer],"TransferItems.SellGarbageRestriction") || // нет разрешения продавать хлам
+			!CheckAttribute(&characters[iOfficer],"fighter") && z != 0) continue; // не абордажник и не гг
+
+		FastSaleCharacter(&characters[iOfficer], asMoney);
 	}
 
-	if (rSaleProps.money != 0) { // если хоть что-то продали
-		if (CheckAttribute(&InterfaceStates, "AutoSellLogs"))
-		{
-			Log_TestInfo("Продано: Клинков " + rSaleProps.BladeCount + ", Пистолетов " + rSaleProps.GunCount +
-				", Идолов " + rSaleProps.TalismanCount + ", Хлама " + rSaleProps.RubbishCount);
-		}
-		AddmoneyToCharacter(PChar, sti(rSaleProps.money));
+	if (asMoney != 0) { // если хоть что-то продали
+		AddmoneyToCharacter(PChar, sti(asMoney));
 		ref rTreasurer = GetPCharTreasurerRef(); //Казначей. Ему даем экспу
-		AddCharacterExpToSkill(rTreasurer, "Commerce", MakeInt(abs(sti(rSaleProps.money)) / 800) + rand(1) + 2);
+		AddCharacterExpToSkill(rTreasurer, "Commerce", MakeInt(abs(sti(asMoney)) / 800) + rand(1) + 2);
 	}
 }
 
 void Fastsale_trash_single(ref character)
 {
 	if (!CheckAttribute(character,"TransferItems.SellGarbageRestriction")) return; //нет разрешения продавать мусор
+	
+	ref asMoney
 
-	object sellProps;
-	ref rSaleProps;
-	makeref(rSaleProps, sellProps);
+	FastSaleCharacter(character, asMoney);
 
-	rSaleProps.money = 0;
-	rSaleProps.BladeCount = 0;
-	rSaleProps.GunCount = 0;
-	rSaleProps.RubbishCount = 0;
-	rSaleProps.TalismanCount = 0;
-
-	FastSaleCharacter(character, rSaleProps);
-
-	if (rSaleProps.money != 0) { // если хоть что-то продали
-		if(CheckAttribute(&InterfaceStates, "AutoSellLogs"))
-		{
-			Log_TestInfo("Продано: Клинков " + rSaleProps.BladeCount + ", Пистолетов " + rSaleProps.GunCount +
-				", Идолов " + rSaleProps.TalismanCount + ", Хлама " + rSaleProps.RubbishCount);
-		}
-		AddmoneyToCharacter(PChar, sti(rSaleProps.money));
+	if (asMoney != 0) { // если хоть что-то продали
+		AddmoneyToCharacter(PChar, sti(asMoney));
 		ref rTreasurer = GetPCharTreasurerRef(); //Казначей. Ему даем экспу
-		AddCharacterExpToSkill(rTreasurer, "Commerce", MakeInt(abs(sti(rSaleProps.money)) / 800) + rand(1) + 2);
+		AddCharacterExpToSkill(rTreasurer, "Commerce", MakeInt(abs(sti(asMoney)) / 800) + rand(1) + 2);
 	}
 }
+
+
