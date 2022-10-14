@@ -436,7 +436,7 @@ void ProcessDialogEvent()
 			int iGoods3 = 670 - GetSquadronGoods(Pchar, GOOD_SANDAL);
 			if(CheckAttribute(pchar, "questTemp.Headhunter"))
 			{
-	    		if(pchar.questTemp.Headhunter == "Rat_officer" && GetCompanionQuantity(pchar) == 1 && 3-sti(RealShips[sti(pchar.ship.type)].Class) <= 0)
+	    		if(pchar.questTemp.Headhunter == "Rat_officer" && IsNoCompanions() && 3-sti(RealShips[sti(pchar.ship.type)].Class) <= 0)
 				{
 
 					if(iGoods1 < 1 || iGoods2 < 1 || iGoods3 < 1)

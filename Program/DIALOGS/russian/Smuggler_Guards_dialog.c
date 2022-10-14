@@ -89,10 +89,10 @@ void ProcessDialogEvent()
 			Diag.CurrentNode = Diag.TempNode;
 			NPChar.quest.meeting = NPC_Meeting;
 			DialogExit();
-			for (i = 1; i <= sti(Pchar.quest.contraband.SoldierQty); i++)
+			for (i = 1; i <= sti(Pchar.quest.Contraband.SoldierQty); i++)
 			{
     			attrName = "SoldierIDX"+i;
-				sld = GetCharacter(sti(Pchar.quest.contraband.(attrName)));
+				sld = GetCharacter(sti(Pchar.quest.Contraband.(attrName)));
 				LAi_SetWarriorType(sld);
 				LAi_group_MoveCharacter(sld, "CoastalGuards");
             }
@@ -106,7 +106,7 @@ void ProcessDialogEvent()
 
 			//LAi_SetPlayerType(Pchar);
             LAi_SetFightMode(Pchar, true);
-			//trace("And we fight those soldiers!!" + Pchar.quest.contraband.CurrentPlace);
+			//trace("And we fight those soldiers!!" + Pchar.quest.Contraband.CurrentPlace);
 		break;
 
 		case "ThisTimeFree_exit":
@@ -116,10 +116,10 @@ void ProcessDialogEvent()
             DialogExit();
 			StopCoastalGuardPursuit();
 			ChangeContrabandRelation(pchar, -30);
-			for (i = 1; i <= sti(Pchar.quest.contraband.SoldierQty); i++)
+			for (i = 1; i <= sti(Pchar.quest.Contraband.SoldierQty); i++)
 			{
     			attrName = "SoldierIDX"+i;
-				sld = GetCharacter(sti(Pchar.quest.contraband.(attrName)));
+				sld = GetCharacter(sti(Pchar.quest.Contraband.(attrName)));
 				LAi_SetWarriorType(sld);
 				LAi_group_MoveCharacter(sld, "CoastalGuards");
             }
@@ -223,11 +223,11 @@ void ProcessDialogEvent()
             DialogExit();
 
 			StopCoastalGuardPursuit();
-			for (i = 1; i <= sti(Pchar.quest.contraband.SoldierQty); i++)
+			for (i = 1; i <= sti(Pchar.quest.Contraband.SoldierQty); i++)
 			{
                 attrName = "SoldierIDX"+i;
-                LAi_SetActorType(&Characters[sti(Pchar.quest.contraband.(attrName))]);
-                LAi_ActorRunToLocation(&Characters[sti(Pchar.quest.contraband.(attrName))], "reload", "Reload1", "none", "", "", "", 40);
+                LAi_SetActorType(&Characters[sti(Pchar.quest.Contraband.(attrName))]);
+                LAi_ActorRunToLocation(&Characters[sti(Pchar.quest.Contraband.(attrName))], "reload", "Reload1", "none", "", "", "", 40);
 			}
 			LAi_SetPlayerType(Pchar);
 		break;

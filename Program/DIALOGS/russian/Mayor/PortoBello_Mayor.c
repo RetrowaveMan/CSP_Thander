@@ -53,7 +53,7 @@ void ProcessCommonDialogEvent(ref NPChar, aref Link, aref NextDiag)
 			link.l1.go = "Step_S10_5";
         break;
         case "Step_S10_5":
-			if (GetCompanionQuantity(pchar) > 1)
+			if (IsWithCompanions())
 			{
 				dialog.text = "Капитаны будут переданы в ваше распоряжение как только вы избавитесь от лишних кораблей в составе вашей эскадры. Вы должны иметь только один ваш корабль.";
 				link.l1 = "Я понял"+ GetSexPhrase("","а") +". Буду у вас позже, как только утрясу со своей эскадрой...";

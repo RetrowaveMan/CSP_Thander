@@ -3964,7 +3964,7 @@ void CaptainComission_GenerateCoastalPatrol()
 		CoastGuard.AlwaysSandbankManeuver = true;
 		Group_AddCharacter("Coastal_Guards", CoastGuard.id);
 		SetCharacterRelationBoth(sti(CoastGuard.index), GetMainCharacterIndex(), RELATION_ENEMY);
-		if (makeint(pchar.rank) < 6 && i == 1 && GetCompanionQuantity(pchar) == 1) break;
+		if (makeint(pchar.rank) < 6 && i == 1 && IsNoCompanions()) break;
 		if (makeint(pchar.rank) < 9 && i == 2 && GetCompanionQuantity(pchar) < 3) break;
     }
 	Group_SetGroupCommander("Coastal_Guards", "Coastal_Captain01");

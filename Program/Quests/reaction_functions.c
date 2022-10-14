@@ -9533,7 +9533,7 @@ void Headhunter_Ratgulf(string qName)//высадились в заливе
 	pchar.quest.HeadhunterC_AfterBattle.over = "yes";
 	Group_DeleteGroup("PinasseC");
 	pchar.quest.Headhunter_RatgulfOver.over = "yes";
-	if (GetCompanionQuantity(pchar) > 1 || 3-sti(RealShips[sti(pchar.ship.type)].Class) > 0)
+	if (IsWithCompanions() || 3-sti(RealShips[sti(pchar.ship.type)].Class) > 0)
 	{
 		AddQuestRecord("Headhunt", "19_1");
 		AddQuestUserData("Headhunt", "sSex", GetSexPhrase("ся","ась"));

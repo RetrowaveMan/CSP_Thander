@@ -34,7 +34,7 @@ void ProcessCommonDialogEvent(ref NPChar, aref Link, aref NextDiag)
 
 //************************************* Диалоги по голл.линейке *******************************
 		case "Step_H5_1":
-    		if (GetCompanionQuantity(pchar) == 1)
+    		if (IsNoCompanions())
             {
                 dialog.text = "Пожалуйста, принимайте. Три флейта поступают в ваше распоряжение.";
     			link.l1 = "Великолепно.";

@@ -977,7 +977,7 @@ void ProcessDialogEvent()
 		break;
 
 		case "CompanionTravel_ToSquadron":
-			if(GetCompanionQuantity(PChar) < COMPANION_MAX)
+			if(IsNotMaxedCompanions())
 			{
 				dialog.text = "Я тоже этого желаю. Отныне мой корабль снова под вашим командованием, кэп.";
 					Link.l1 = "Хорошо.";
@@ -1014,7 +1014,7 @@ void ProcessDialogEvent()
 
 		case "CompanionTravel_ToSquadron_2":
 			dialog.text = "А-а, капитан. Вот вы и вернулись, как я и говорил. Ну что, место в эскадре освободилось?";
-			if(GetCompanionQuantity(PChar) < COMPANION_MAX)
+			if(IsNotMaxedCompanions())
 			{
 				Link.l1 = "Да, " + NPChar.name + ", освободилось. Добро пожаловать в состав эскадры.";
 				Link.l1.go = "exit";

@@ -1176,7 +1176,7 @@ void QuestComplete(string sQuestName, string qname)
 
 		//Постановка стражников в локацию передачи контрабандистов
 		case "Rand_ContrabandInterruption":
-			if (CheckCharacterPerk(pchar, "UnlimitedContra") && GetCompanionQuantity(pchar) == 1 && sti(RealShips[sti(pchar.ship.type)].Class) > 2)
+			if (CheckCharacterPerk(pchar, "UnlimitedContra") && IsNoCompanions() && sti(RealShips[sti(pchar.ship.type)].Class) > 2)
 			{
 				Log_TestInfo("Перк спас от патруля");
 			}
@@ -1189,22 +1189,22 @@ void QuestComplete(string sQuestName, string qname)
 
 				// может быть два квеста - или торговля с контром, или корсарское метро
 				// iTemp - Нация патруля
-				if (CheckAttribute(PChar, "GenQuest.Contraband.GuardNation"))
+				if (CheckAttribute(PChar, "Genquest.Contraband.GuardNation"))
 				{
-					iTemp = sti(pchar.GenQuest.Contraband.GuardNation);
+					iTemp = sti(pchar.Genquest.Contraband.GuardNation);
 				}
 				else
 				{
-					iTemp = sti(pchar.GenQuest.ContraTravel.GuardNation);
+					iTemp = sti(pchar.quest.Transportation.GuardNation);
 				}
 
-				Pchar.quest.contraband.SoldierQty = makeint(2*GetOfficersQuantity(Pchar) + 3);
+				Pchar.quest.Contraband.SoldierQty = makeint(2*GetOfficersQuantity(Pchar) + 3);
 				// солдаты в начале
-				for (i = 2; i <= sti(Pchar.quest.contraband.SoldierQty); i++)
+				for (i = 2; i <= sti(Pchar.quest.Contraband.SoldierQty); i++)
 				{
 					sld = SetFantomDefenceForts("", "", iTemp, "CoastalGuards");
 					attrName = "SoldierIDX"+i;
-					Pchar.quest.contraband.(attrName) = sld.index;
+					Pchar.quest.Contraband.(attrName) = sld.index;
 					LAi_SetActorType(sld);
 					LAi_ActorFollow(sld, Pchar, "", 38);
 					sld.Dialog.Filename = "Smuggler_Guards_dialog.c";
@@ -1215,30 +1215,30 @@ void QuestComplete(string sQuestName, string qname)
 
 				// офицер в конце
 				sld = SetFantomOfficer("", "", iTemp, "CoastalGuards");
-				Pchar.quest.contraband.SoldierIDX1 = sld.index;
+				Pchar.quest.Contraband.SoldierIDX1 = sld.index;
 				LAi_SetActorType(sld);
 				sld.Dialog.Filename = "Smuggler_Guards_dialog.c";
 				sld.Dialog.CurrentNode = "First time";
 				sld.greeting = "Gr_Costal_Guards";
 
-				LAi_ActorDialog(&Characters[makeint(Pchar.quest.contraband.SoldierIDX1)], Pchar, "", 35, 1); // boal 120c - озвереть ждать!!!
+				LAi_ActorDialog(&Characters[makeint(Pchar.quest.Contraband.SoldierIDX1)], Pchar, "", 35, 1); // boal 120c - озвереть ждать!!!
 				LAi_group_SetCheck("CoastalGuards", "CoastalGuardsAllDead");
 				pchar.quest.CoastG.win_condition.l1 = "NPC_Death";
 				pchar.quest.CoastG.win_condition.l1.character = sld.id;
 				pchar.quest.CoastG.win_condition = "Rand_ContraFinal";
 				//LAi_SetActorType(Pchar); //fix
-				//LAi_ActorFollow(PChar, &Characters[makeint(Pchar.quest.contraband.SoldierIDX1)], "", 35);
+				//LAi_ActorFollow(PChar, &Characters[makeint(Pchar.quest.Contraband.SoldierIDX1)], "", 35);
 				//Lai_QuestDelay("Rand_CoastalPatrolAppear", 3.0);
 			}
 		break;
 
 		/*case "Rand_CoastalPatrolAppear":
-			//Trace("QUEST Rand_CoastalPatrolAppear reports: Soldier Idx = " + Pchar.quest.contraband.SoldierIDX1);
+			//Trace("QUEST Rand_CoastalPatrolAppear reports: Soldier Idx = " + Pchar.quest.Contraband.SoldierIDX1);
 			//StartQuestMovie(true, true, true);
 			//LAi_SetActorTypeNoGroup(Pchar);
 			LAi_SetActorType(Pchar);
-			LAi_ActorTurnToCharacter(Pchar, &Characters[makeint(Pchar.quest.contraband.SoldierIDX1)]);
-			LAi_ActorWaitDialog(Pchar, &Characters[makeint(Pchar.quest.contraband.SoldierIDX1)]);
+			LAi_ActorTurnToCharacter(Pchar, &Characters[makeint(Pchar.quest.Contraband.SoldierIDX1)]);
+			LAi_ActorWaitDialog(Pchar, &Characters[makeint(Pchar.quest.Contraband.SoldierIDX1)]);
 			//LAi_SetPlayerType(Pchar);
 		break;*/
 
@@ -1246,7 +1246,7 @@ void QuestComplete(string sQuestName, string qname)
 			StopCoastalGuardPursuit();
 
 			AddSimpleRumourCity("А вот давеча баталия у маяка была. Какой-то капитан пытался продать крупную партию контрабанды, так его патрульная эскадра за энтим делом накрыла. С поличным, значит. "+
-				"Грохоту было - весь город переполошился, а в местной лавке крышу ядром проломило! Да только без толку всё. Местные-то - скупщики значит, в джунглях спрятались, а капитан морем ушёл. Как есть, с носом нашу эскадру оставил! Так из бухты вырулил - любой лоцман позавидует!", Pchar.quest.contraband.City, 3, 5, "");
+				"Грохоту было - весь город переполошился, а в местной лавке крышу ядром проломило! Да только без толку всё. Местные-то - скупщики значит, в джунглях спрятались, а капитан морем ушёл. Как есть, с носом нашу эскадру оставил! Так из бухты вырулил - любой лоцман позавидует!", Pchar.quest.Contraband.City, 3, 5, "");
 		break;
 
 		case "ContraClearGot":
@@ -1257,7 +1257,7 @@ void QuestComplete(string sQuestName, string qname)
 			StopCoastalGuardPursuit();
 
 			AddSimpleRumourCity("А вот давеча баталия у маяка была. Какой-то капитан пытался продать крупную партию контрабанды, так его патрульная эскадра за энтим делом накрыла. С поличным, значит. "+
-				"Грохоту было - весь город переполошился, а в местной лавке крышу ядром проломило! Да только без толку всё. Местные-то - скупщики значит, в джунглях спрятались, а капитан морем ушёл. Как есть, с носом нашу эскадру оставил! Так из бухты вырулил - любой лоцман позавидует!", Pchar.quest.contraband.City, 3, 5, "");
+				"Грохоту было - весь город переполошился, а в местной лавке крышу ядром проломило! Да только без толку всё. Местные-то - скупщики значит, в джунглях спрятались, а капитан морем ушёл. Как есть, с носом нашу эскадру оставил! Так из бухты вырулил - любой лоцман позавидует!", Pchar.quest.Contraband.City, 3, 5, "");
 		break;
 		case "CoastalGuardsAllDead":
 			for (i=1; i<3+makeint(MOD_SKILL_ENEMY_RATE/2); i++)
@@ -1350,23 +1350,23 @@ void QuestComplete(string sQuestName, string qname)
 		/////////////////////////////////////////////////////////////////////////////////
 		//	Корсарское метро
 		/////////////////////////////////////////////////////////////////////////////////
-		case "RemoveTravelSmugglers":
-			if (!CheckAttribute(PChar, "GenQuest.contraTravel.PatrolFight")) ChangeContrabandRelation(PChar, -10);
+		case "RemoveTransportationSmugglers":
+			if (!CheckAttribute(PChar, "quest.Transportation.PatrolFight")) ChangeContrabandRelation(PChar, -10);
 			RemoveSmugglersFromShore();
 
-			if (!CheckAttribute(PChar, "GenQuest.contraTravel.ship"))
+			if (!CheckAttribute(PChar, "quest.Transportation.ship"))
 			{
-				AddQuestRecord("Gen_ContrabandTravel", "3");
-				AddQuestUserData("Gen_ContrabandTravel", "sSex", GetSexPhrase("","а"));
-				DeleteAttribute(PChar, "GenQuest.contraTravel");
-				CloseQuestHeader("Gen_ContrabandTravel");
+				AddQuestRecord("Gen_SmugglersTransportation", "3");
+				AddQuestUserData("Gen_SmugglersTransportation", "sSex", GetSexPhrase("","а"));
+				DeleteAttribute(PChar, "quest.Transportation");
+				CloseQuestHeader("Gen_SmugglersTransportation");
 			}
 
 			sld = CharacterFromID("Abracham_Gray");
 			sld.location.from_sea = "";
 			break;
 
-		case "Travel_talkOnDeck":
+		case "Transportation_TalkOnDeck":
 			//убираем контрабандистов
 			RemoveSmugglersFromShore();
 			//кинозвезда Абрахам Грей :)
@@ -1396,9 +1396,9 @@ void QuestComplete(string sQuestName, string qname)
 			LAi_SetFightModeForOfficers(false);
 			break;
 
-		case "Travel_AfterDeckFight":
-			AddQuestRecord("Gen_ContrabandTravel", "5");
-			AddQuestUserData("Gen_ContrabandTravel", "sSex", GetSexPhrase("","а"));
+		case "Transportation_AfterDeckFight":
+			AddQuestRecord("Gen_SmugglersTransportation", "5");
+			AddQuestUserData("Gen_SmugglersTransportation", "sSex", GetSexPhrase("","а"));
 			StartActorSelfDialog("GenTravel_Main");
 			break;
 		/////////////////////////////////////////////////////////////////////////////////

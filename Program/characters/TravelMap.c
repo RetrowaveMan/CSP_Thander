@@ -4744,7 +4744,7 @@ string GetRandomIslandId()
 }
 
 //navy--> переписано под полную карту
-void SetSmugglersTravelDestination(aref arDest)
+void SetSmugglersTransportationDestination(aref arDest)
 {
 	int i, iNum, iMin, iMax;
 	aref arTown;

@@ -1234,7 +1234,7 @@ void WhisperSmugglingPatrol()
 		CoastGuard.AlwaysSandbankManeuver = true;
 		Group_AddCharacter("Coastal_Guards", CoastGuard.id);
 		SetCharacterRelationBoth(sti(CoastGuard.index), GetMainCharacterIndex(), RELATION_ENEMY);
-		//if (makeint(pchar.rank) < 6 && i == 1 && GetCompanionQuantity(pchar) == 1) break;
+		//if (makeint(pchar.rank) < 6 && i == 1 && IsNoCompanions()) break;
 
 		if (MOD_SKILL_ENEMY_RATE!= 10)
 		{

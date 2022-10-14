@@ -438,7 +438,7 @@ void ProcessDialogEvent()
 			AddQuestUserData("Fra_Line_6_Olone", "sSex", GetSexPhrase("","а"));
 		break;
  		case "Step_F6_4":
-            if (GetCompanionQuantity(pchar) == 1)   // Заставляем геймера избавиться от взятых кубиков.
+            if (IsNoCompanions())   // Заставляем геймера избавиться от взятых кубиков.
             {
 				if (GetQuestPastDayParam("questTemp") < 6)
 				{

@@ -1147,7 +1147,7 @@ void ProcessDialogEvent()
 				//конвой
                 if (!CheckQuestAttribute("generate_convoy_quest_progress", "begin"))
                 {
-					if (GetCompanionQuantity(PChar) == COMPANION_MAX)
+					if (IsMaxedCompanions())
 					{
 						dialog.text = "Хм, но для эскорта у тебя слишком большая эскадра. Тебе бы свои корабли не растерять, а не то, чтоб чужие сберечь.";
 						link.l1 = "Да ладно тебе, свои-то я не растеряю, разве что продать парочку... Ладно, зайду позже, если надумаю.";

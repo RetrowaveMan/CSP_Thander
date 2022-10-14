@@ -790,7 +790,7 @@ void ProcessDialogEvent()
 
 	case "Quest_1_Ship":
 		PChar.Quest.PGGQuest1_RemoveShip_Timer.Over = "yes";
-		if (GetCompanionQuantity(PChar) == COMPANION_MAX)
+		if (IsMaxedCompanions())
 		{
 			Dialog.Text = RandPhraseSimple("Э, нет... Так дело не пойдет... Не слишком ли много тебе кораблей, " + GetSexPhrase("дружок","подруга") + "?",
 					"Ха! В такой большой компании секрета не утаишь! Проваливай.");

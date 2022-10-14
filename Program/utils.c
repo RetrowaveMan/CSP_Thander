@@ -264,16 +264,6 @@ void Log_QuestInfo(string _info)
 	}
 }
 
-void list_ref_props(ref objRef) {
-	aref arItem;
-	string sItem;
-	for (int i = 0; i < GetAttributesNum(objRef); i++) {
-		arItem = GetAttributeN(objRef, i);
-		sItem = GetAttributeName(arItem);
-		log_info(sItem)
-	}
-}
-
 string NewStr()
 {
     int idLngFile = LanguageOpenFile("ItemsDescribe.txt");

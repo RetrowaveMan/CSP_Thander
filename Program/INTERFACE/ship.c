@@ -533,7 +533,7 @@ void OnShipScrollChange()
 		// на одном корабле
 		SetFoodShipInfo(xi_refCharacter, "FOOD_SHIP");
 		// в эскадре
-		if (GetCompanionQuantity(pchar) > 1) SetSquadronFoodShipInfo(xi_refCharacter, "FOOD_SHIP"); // больше 1 ГГ
+		if (IsWithCompanions()) SetSquadronFoodShipInfo(xi_refCharacter, "FOOD_SHIP"); // больше 1 ГГ
 		// еда <--
 		SetRumShipInfo(xi_refCharacter,"FOOD");
 		if (GetRemovable(xi_refCharacter)) // считаем только своих, а то вских сопровождаемых кормить!!!

@@ -169,7 +169,7 @@ void ProcessDialogEvent()
 			}
 			else
 			{
-				if(GetCompanionQuantity(PChar) > 1)
+				if(IsWithCompanions())
 				{
 					ref rChar;
 					for(int i = 1; i<GetCompanionQuantity(PChar); i++)

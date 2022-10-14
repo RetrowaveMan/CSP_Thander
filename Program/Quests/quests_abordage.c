@@ -8,7 +8,7 @@ void QuestAbordageStartEvent()
 
 	if (iCharacter1 == iTestCharacter || iCharacter2 == iTestCharacter)
 	{
-		//Characters[GetCharacterIndex("Thomas O'Reily")].quest.contraband = "boarding";
+		//Characters[GetCharacterIndex("Thomas O'Reily")].quest.Contraband = "boarding";
 		AddCharacterGoods(GetMainCharacter(), GOOD_SANDAL, 50);
 	}
 }

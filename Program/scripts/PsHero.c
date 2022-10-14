@@ -1803,7 +1803,7 @@ string PGG_Event_WorkWithContra(ref rRum)
 	ref chr = GetCharacter(sti(rRum.Var));
 
 	sSmugglersLocation = SelectSmugglingLocation();
-	if (!CheckAttribute(pchar, "quest.Contraband.Active") && !CheckAttribute(pchar, "questTemp.PGGContra") && !CheckAttribute(pchar, "GenQuest.contraTravel.active"))
+	if (!CheckAttribute(pchar, "quest.Contraband.active") && !CheckAttribute(pchar, "questTemp.PGGContra") && !CheckAttribute(pchar, "quest.Transportation.active"))
 	{
 		chr.PGGAi.location.town.back = chr.PGGAi.location.town;
 		chr.PGGAi.location.town = "none";
@@ -1942,7 +1942,7 @@ bool PGG_CheckForQuestOffer(ref chr)
 
 	if (sti(chr.Ship.Type) != SHIP_NOTUSED && sti(PChar.Ship.Type) != SHIP_NOTUSED && rand(100) > iTst && iDays > 25 + drand(10))
 	{
-		if (GetCharacterShipClass(PChar) <= 4 && GetCompanionQuantity(PChar) < COMPANION_MAX && bOk)
+		if (GetCharacterShipClass(PChar) <= 4 && IsNotMaxedCompanions() && bOk)
 		{
 			chr.PGGAi.ActiveQuest.QstNumber = 0;
 			retVal = true;

@@ -1240,7 +1240,7 @@ void SetButtionsAccess()
                 SetSelectable("BUTTON_PAINT", true);
 				SetSelectable("SHIPSUP_BUTTON", true);
     	    }
-    	    if (xi_refCharacter.id == pchar.id && GetCompanionQuantity(pchar) > 1)
+    	    if (xi_refCharacter.id == pchar.id && IsWithCompanions())
     	    { // нельзя продать корабль ГГ, если есть ещё компаньоны
     	        SetSelectable("BUTTON_SELL", false);
     	    }

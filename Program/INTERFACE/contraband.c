@@ -334,7 +334,7 @@ void IDoExit(int exitCode)
 	pchar.ContraFilter = FIS_FilterState;
 	if(GetSummonSkillFromName(GetMainCharacter(), "Sneak") < Rand(120) && !CheckAttribute(pchar,"quest.Contraband.InterruptionGot"))
 	{
-		PChar.GenQuest.contraTravel.PatrolFight = true;
+		PChar.quest.Transportation.PatrolFight = true;
 		PChar.quest.Contraband.InterruptionGot = true;
 		DoQuestCheckDelay("Rand_ContrabandInterruption", 0.1);
 		ContrabandInterruptionSetStatus(true);
@@ -358,7 +358,7 @@ void IDoExit(int exitCode)
 
 	Pchar.quest.Rand_Smuggling.over = "yes";
 	RemoveSmugglersFromShore();
-	//RemoveAllContraGoods(CharacterFromId(pchar.GenQuest.Contraband.SmugglerId));
+	//RemoveAllContraGoods(CharacterFromId(pchar.Genquest.Contraband.SmugglerId));
 
     EndAboveForm(true);
 

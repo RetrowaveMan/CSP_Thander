@@ -331,7 +331,7 @@ void ProcessDialogEvent()
 				Link.l1.go = "DestroyPirate_5";
 				break;
 			}
-			if (GetCompanionQuantity(pchar) == 1 && makeint(pchar.GenQuest.DestroyPirate.shipState) > 1)
+			if (IsNoCompanions() && makeint(pchar.GenQuest.DestroyPirate.shipState) > 1)
 			{
 				dialog.text = "Пожалуй, я отпущу тебя, "+ GetSexPhrase("губернаторский пёс","губернаторская шавка") +". Заплатишь за моё великодушие своей наличностью.\nВ общем, проваливай, пока я добрый...";
 				Link.l1 = "Спасибо и на этом. Прощай...";

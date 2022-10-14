@@ -819,7 +819,7 @@ void SetShipInformationOne()
 		SetSelectable("REPAIR_SHIP1", true);
 		SetSelectable("GUARD_YES_SHIP1", true);
 
-		if(sti(PChar.Colony.Guardians.Ship2) != -1 || GetCompanionQuantity(PChar) >= COMPANION_MAX)
+		if(sti(PChar.Colony.Guardians.Ship2) != -1 || IsMoreOrMaxedCompanions())
 		{
 			SetSelectable("REMOVE_SHIP1", false);
 		}
@@ -940,7 +940,7 @@ void SetShipInformationTwo()
 		SetSelectable("REPAIR_SHIP2", true);
 		SetSelectable("GUARD_YES_SHIP2", true);
 
-		if(sti(PChar.Colony.Guardians.Ship3) != -1 || GetCompanionQuantity(PChar) >= COMPANION_MAX)
+		if(sti(PChar.Colony.Guardians.Ship3) != -1 || IsMoreOrMaxedCompanions())
 		{
 			SetSelectable("REMOVE_SHIP2", false);
 		}
@@ -1061,7 +1061,7 @@ void SetShipInformationThree()
 		SetSelectable("REPAIR_SHIP3", true);
 		SetSelectable("GUARD_YES_SHIP3", true);
 
-		if(sti(PChar.Colony.Guardians.Ship4) != -1 || GetCompanionQuantity(PChar) >= COMPANION_MAX)
+		if(sti(PChar.Colony.Guardians.Ship4) != -1 || IsMoreOrMaxedCompanions())
 		{
 			SetSelectable("REMOVE_SHIP3", false);
 		}
@@ -1182,7 +1182,7 @@ void SetShipInformationFour()
 		SetSelectable("REPAIR_SHIP4", true);
 		SetSelectable("GUARD_YES_SHIP4", true);
 
-		if(GetCompanionQuantity(PChar) >= COMPANION_MAX)
+		if(IsMoreOrMaxedCompanions())
 		{
 			SetSelectable("REMOVE_SHIP4", false);
 		}

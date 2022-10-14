@@ -82,7 +82,7 @@ void ProcessDialogEvent()
 ////////////////////////////////////////////////////////////////////////////////
 //	Корсарское метро
 ////////////////////////////////////////////////////////////////////////////////
-		case "Travel_talkStart":
+		case "Transportation_TalkStart":
             NPChar.location = "none"; // чтоб на палубе не болтался
 			//Шанс на то что продадут на рудники.
 			int iRnd = (rand(100) == 30);
@@ -91,24 +91,24 @@ void ProcessDialogEvent()
 				dialog.text = "Мы тут подумали, что, может, стоит продать тебя на рудники. Ха... деньги лишними не бывают.";
 				link.l1 = "Что вы говорите?";
 				//заглушка, пока нет рудников.
-				link.l1.go = "Travel_fight";
+				link.l1.go = "Transportation_fight";
 				//"Travel_mine"; //Собственно тоже можно боевку организовать, ГГ сопротивляется.
 			}
 			else
 			{
 				dialog.text = "Мы прибыли на место, прощай.";
 				link.l1 = "Прощай.";
-				link.l1.go = "Travel_end";
+				link.l1.go = "Transportation_end";
 				link.l2 = "Я тут подумал, нравится мне твой корабль. Хочу оставить его себе.";
-				link.l2.go = "Travel_fight";
+				link.l2.go = "Transportation_fight";
 			}
 		break;
 
-		case "Travel_fight":
+		case "Transportation_fight":
 			ChangeContrabandRelation(pchar, -60);
 
 			LAi_group_MoveCharacter(NPChar, "TmpEnemy");
-			LAi_group_SetCheck("TmpEnemy", "Travel_AfterDeckFight");
+			LAi_group_SetCheck("TmpEnemy", "Transportation_AfterDeckFight");
 			LAi_group_FightGroups(LAI_GROUP_PLAYER, "TmpEnemy", true);
 			LAi_SetPlayerType(PChar);
 			//Вытащим саблю
@@ -119,25 +119,25 @@ void ProcessDialogEvent()
 			LAi_SetWarriorTypeNoGroup(NPChar);
 		break;
 
-		case "Travel_end":
+		case "Transportation_end":
 			NextDiag.CurrentNode = NextDiag.Tempnode;
 			DialogExit();
 			//Квест бук
-			AddQuestRecord("Gen_ContrabandTravel", "4");
-			AddQuestUserData("Gen_ContrabandTravel", "sLocTo", GetConvertStr(pchar.GenQuest.contraTravel.destination.loc, "LocLables.txt")));
+			AddQuestRecord("Gen_SmugglersTransportation", "4");
+			AddQuestUserData("Gen_SmugglersTransportation", "sLocTo", GetConvertStr(pchar.quest.Transportation.destination.loc, "LocLables.txt")));
 
 
 			LAi_SetPlayerType(PChar);
 			//грузим ГГ куда нужно....
-			setWDMPointXZ(pchar.GenQuest.contraTravel.destination.loc);
-			SetAnyReloadToLocation(pchar.GenQuest.contraTravel.destination.loc,
-									pchar.GenQuest.contraTravel.destination.group,
-									pchar.GenQuest.contraTravel.destination.locator, "", 0, 0, 0, 0);
+			setWDMPointXZ(pchar.quest.Transportation.destination.loc);
+			SetAnyReloadToLocation(pchar.quest.Transportation.destination.loc,
+									pchar.quest.Transportation.destination.group,
+									pchar.quest.Transportation.destination.locator, "", 0, 0, 0, 0);
 			AddDialogExitQuest("AnyReloadToLocation");
             chrDisableReloadToLocation = false;
-			CloseQuestHeader("Gen_ContrabandTravel");
+			CloseQuestHeader("Gen_SmugglersTransportation");
 			//трём аттрибуты
-			DeleteAttribute(PChar, "GenQuest.contraTravel");
+			DeleteAttribute(PChar, "quest.Transportation");
 		break;
 	}
 }

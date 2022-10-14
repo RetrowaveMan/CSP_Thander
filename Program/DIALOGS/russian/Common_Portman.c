@@ -777,7 +777,7 @@ void ProcessDialogEvent()
 				//конвой
 				if (!CheckQuestAttribute("generate_convoy_quest_progress", "begin"))
 				{
-					if (GetCompanionQuantity(PChar) == COMPANION_MAX)
+					if (IsMaxedCompanions())
 					{
 						dialog.text = "Но для эскорта ваша эскадра великовата. Не пойдут торговцы в такой караван, который сам по себе может привлечь нежелательное внимание.";
 						link.l1 = "Верно, не подумал"+ GetSexPhrase("","а") +". Ладно, зайду позже, если настроение будет.";
@@ -1699,7 +1699,7 @@ void ProcessDialogEvent()
 			ok = (sFrom_sea == "") || (Pchar.location.from_sea == sFrom_sea);
 			if (sti(Pchar.Ship.Type) != SHIP_NOTUSED && ok)
 			{
-				if (GetCompanionQuantity(pchar) < COMPANION_MAX)
+				if (IsNotMaxedCompanions())
 				{
 					dialog.text = "Какой именно корабль вы заберёте?";
 					cn = 1;

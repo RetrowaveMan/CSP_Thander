@@ -545,7 +545,7 @@ void ProcessDialogEvent()
 		switch (iRnd)
 		{
 		case 0:
-			if (sti(NPChar.Ship.Type) != SHIP_NOTUSED && sti(PChar.Ship.Type) != SHIP_NOTUSED && GetCharacterShipClass(PChar) <= 4 && GetCompanionQuantity(PChar) < COMPANION_MAX && iDays > 14)
+			if (sti(NPChar.Ship.Type) != SHIP_NOTUSED && sti(PChar.Ship.Type) != SHIP_NOTUSED && GetCharacterShipClass(PChar) <= 4 && IsNotMaxedCompanions() && iDays > 14)
 			{
 				//квест от ПГГ
 				/*if (CheckAttribute(NPChar, "PGGAi.ActiveQuest"))
@@ -755,7 +755,7 @@ void ProcessDialogEvent()
 
 	case "Quest_1_Ship":
 		PChar.Quest.PGGQuest1_RemoveShip_Timer.Over = "yes";
-		if (GetCompanionQuantity(PChar) == COMPANION_MAX)
+		if (IsMaxedCompanions())
 		{
 			Dialog.Text = RandPhraseSimple("Э, нет... Так дело не пойдет... Не много ли тебе кораблей, "+ GetSexPhrase("приятель","подруга") +"?",
 					"Ха! В такой большой компании секрета не удержишь! Проваливай.");

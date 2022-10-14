@@ -3321,7 +3321,7 @@ void ProcessDialogEvent()
 			dialog.text = "Ещё одна просьба. Власти наверняка организуют погоню, вы не могли бы сопроводить моё судно до " + XI_ConvertString(pchar.GenQuest.CaptainComission.ConvoyShore + "Gen") + ", что на " + XI_ConvertString(GetIslandByCityName(sTemp) + "Dat") + "?";
 			link.l1 = "Нет, уважаемый, дальше каждый сам за себя. Прощайте...";
 			link.l1.go = "CaptainComission_322";
-			if (GetCompanionQuantity(pchar) < COMPANION_MAX)
+			if (IsNotMaxedCompanions())
 			{
 				link.l2 = "Конечно мог"+ GetSexPhrase("","ла") +" бы, если вознаграждение будет соответствующим.";
 				link.l2.go = "CaptainComission_323";

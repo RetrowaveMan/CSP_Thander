@@ -379,7 +379,7 @@ void ProcessCommonDialogRumors(ref NPChar, aref Link, aref NextDiag);
 			{
 				if (pchar.questTemp.pirateVikingQuest == "4")
 				{
-					if(ShipsTypes[sti(RealShips[sti(pchar.Ship.Type)].BaseType)].Type.Merchant == true && GetCompanionQuantity(pchar) == 1)
+					if(ShipsTypes[sti(RealShips[sti(pchar.Ship.Type)].BaseType)].Type.Merchant == true && IsNoCompanions())
 					{
 						if (GetSquadronGoods(Pchar, GOOD_EBONY) >= 600 || GetSquadronGoods(Pchar, GOOD_SILK) >= 1000 || GetSquadronGoods(Pchar, GOOD_SILVER) >= 400)
 						{

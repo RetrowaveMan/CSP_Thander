@@ -206,7 +206,7 @@ Gen_CityCapture {Хроника захвата городов}
 
 Gen_Contraband  {Сбыт контрабанды}
 
-Gen_ContrabandTravel  {Плавание с контрабандистами}
+Gen_SmugglersTransportation  {Плавание с контрабандистами}
 
 Gen_StrangeInfo {Странные слухи}
 

@@ -2295,6 +2295,35 @@ string FindCharacterItemByGroup(ref chref, string groupID)
 	return "";  //ничего не делать далее
 }
 
+bool IsNoCompanions() {
+	if (GetCompanionQuantity(pchar) < 1) {
+		trace("ОШИБКА: Количество компаньонов меньше одного")
+		return false;
+	}
+
+	if (GetCompanionQuantity(pchar) > 1) {
+		return false;
+	}
+
+	return true;
+}
+
+bool IsWithCompanions() {
+	return !IsNoCompanions();
+}
+
+bool IsNotMaxedCompanions() {
+	return GetCompanionQuantity(pchar) < COMPANION_MAX;
+}
+
+bool IsMaxedCompanions() {
+	return GetCompanionQuantity(pchar) == COMPANION_MAX;
+}
+
+bool IsMoreOrMaxedCompanions() {
+	return GetCompanionQuantity(PChar) >= COMPANION_MAX;
+}
+
 bool IsEquipCharacterByItem(ref chref, string itemID)
 {
 	aref arEquip;
