@@ -35,7 +35,7 @@ void ProcessDialogEvent()
 				dialog.text = "Это брюхо вспорол мне... Коралловый риф... Ла-ла-ла-ла-ла!";
 				link.l1 = "";
 				link.l1.go = "exit";
-				DeleteAttribute(link, "l2");
+				DeleteAttribute(link, "l2"); //test
 			}
 		break;
 
